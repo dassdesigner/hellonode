@@ -1,11 +1,10 @@
 /**
- * Copyright 2017 The Kubernetes Authors All rights reserved.
- *
+ * Copyright 2017, Google, Inc.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,23 +13,14 @@
  * limitations under the License.
  */
 
+'use strict';
+
+// [START all]
 const http = require('http');
-const os = require('os');
-
-const port = process.env.PORT || 8080;
-
-process.on('SIGINT', function() {
-  console.log('shutting down...');
-  process.exit(1);
-});
-
-var handleRequest = function(request, response) {
-  console.log(`Received request for URL: ${request.url}`);
-  response.writeHead(200);
-  response.end(`Hello, World!\nHostname: ${os.hostname()}\n`);
+const handleRequest = function(req, res) {
+  res.writeHead(200);
+  res.end('Hello Kubernetes!');
 };
-
-var www = http.createServer(handleRequest);
-www.listen(port, () => {
-  console.log(`server listening on port ${port}`);
-});
+const www = http.createServer(handleRequest);
+www.listen(process.env.PORT || 8080);
+// [END all]
